@@ -1,14 +1,13 @@
 package com.frame;
 
 import com.app.Cliente;
-import com.controle.conexaobd;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
 
 public class RegistrarFrame extends javax.swing.JFrame {
-    private conexaobd cx = new conexaobd();
+    //private conexaobd cx = new conexaobd();
     
     
     public RegistrarFrame() {
@@ -201,11 +200,11 @@ public class RegistrarFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
-        try {
+        /*try {
             cx.insereLogin(txtName.getText(), "12345", "M");
         } catch (SQLException ex) {
             Logger.getLogger(RegistrarFrame.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        }*/
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
     private void txtNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNameActionPerformed

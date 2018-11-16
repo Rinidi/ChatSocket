@@ -1,4 +1,4 @@
-package com.controle;
+package com.cx.controle;
 
 import java.beans.Statement;
 import java.sql.Connection;
@@ -7,7 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import sun.security.util.Password;
 
-public class conexaobd {
+public class ControleConexao {
 
     private String drive = "com.mysql.jdbc.Drive";
     private String db = "testelogin";
@@ -23,7 +23,7 @@ public class conexaobd {
 
     }
 
-    public conexaobd() {
+    public ControleConexao() {
     }
     
 

@@ -2,12 +2,10 @@
 package com.frame;
 
 import com.app.Cliente;
-import com.controle.conexaobd;
 import javax.swing.JOptionPane;
 
 public class LogarFrame extends javax.swing.JFrame {
 
-    private conexaobd cx = new conexaobd();
     private ClienteFrame cf = new ClienteFrame();
 
     public LogarFrame() {
