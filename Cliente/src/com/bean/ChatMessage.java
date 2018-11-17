@@ -1,30 +1,41 @@
 package com.bean;
 
-import java.io.File;
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.Random;
 import java.util.Set;
 
-public class ChatMessage implements Serializable {
-    
+public class ChatMessage implements Serializable
+{
+
     private String name;
+    private String senha;
     private String text;
     private boolean sex;
     private String nameReserved;
     private Set<String> setOnlines = new HashSet<String>();
     private Action action;
 
+    Random r = new Random();
+    StringBuffer sb = new StringBuffer("#");
+
     public String getName() {
         return name;
+    }
+    public void setName(String nome) {
+        this.name = nome;
+    }
+    public String getSenha() {
+        return senha;
+    }
+    public  void setSenha(String pass) {
+        this.senha = pass;
     }
     public boolean getSex(){
         return sex;
     }
-    public void setName(String name) {
-        this.name = name;
-    }
-    public void setSex(boolean sex){
-        this.sex = sex;
+    public void setSex(boolean sexo){
+        this.sex = sexo;
     }
     public String getText() {
         return text;
@@ -57,8 +68,19 @@ public class ChatMessage implements Serializable {
     public void setAction(Action action) {
         this.action = action;
     }
-    
+
     public enum Action{
         CONNECT, DISCONNECT, SEND_ONE, SEND_ALL, USERS_ONLINE;
+    }
+
+    public String setColor() {
+        while(sb.length() < 7){
+            sb.append(Integer.toHexString(r.nextInt()));
+        }
+        return sb.toString().substring(0, 7);
+    }
+
+    public String getColor() {
+        return sb.toString().substring(0, 7);
     }
 }
