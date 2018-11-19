@@ -1,8 +1,10 @@
 package com.view.app;
 
-import com.cx.control.ControleCadastro;
 import com.view.frame.LogarFrame;
 import com.view.frame.RegistrarFrame;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.net.URL;
 
 public class Cliente extends javax.swing.JFrame {
     
@@ -12,6 +14,9 @@ public class Cliente extends javax.swing.JFrame {
     public Cliente() {
         initComponents();
         this.setLocationRelativeTo(null);
+        URL url = this.getClass().getResource("../../app/images/logoPequeno.png");
+        Image imagemTitulo = Toolkit.getDefaultToolkit().getImage(url);
+        this.setIconImage(imagemTitulo);
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -21,10 +26,13 @@ public class Cliente extends javax.swing.JFrame {
         pnlLogin = new javax.swing.JPanel();
         btnCadastrar = new javax.swing.JButton();
         btnLogar = new javax.swing.JButton();
+        lblLogo = new javax.swing.JLabel();
+        lblEnvelope = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         painelConectar.setPreferredSize(new java.awt.Dimension(530, 500));
+        painelConectar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         pnlLogin.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Menu", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 18))); // NOI18N
         pnlLogin.setEnabled(false);
@@ -71,24 +79,13 @@ public class Cliente extends javax.swing.JFrame {
                 .addContainerGap(54, Short.MAX_VALUE))
         );
 
-        painelConectar.setLayer(pnlLogin, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        painelConectar.add(pnlLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 129, 340, 240));
 
-        javax.swing.GroupLayout painelConectarLayout = new javax.swing.GroupLayout(painelConectar);
-        painelConectar.setLayout(painelConectarLayout);
-        painelConectarLayout.setHorizontalGroup(
-            painelConectarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(painelConectarLayout.createSequentialGroup()
-                .addGap(100, 100, 100)
-                .addComponent(pnlLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(110, Short.MAX_VALUE))
-        );
-        painelConectarLayout.setVerticalGroup(
-            painelConectarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(painelConectarLayout.createSequentialGroup()
-                .addGap(129, 129, 129)
-                .addComponent(pnlLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        lblLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/app/images/LogoPequeno.png"))); // NOI18N
+        painelConectar.add(lblLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 0, 200, 170));
+
+        lblEnvelope.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/app/images/envelope 2.png"))); // NOI18N
+        painelConectar.add(lblEnvelope, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 280, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -153,6 +150,8 @@ public class Cliente extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCadastrar;
     private javax.swing.JButton btnLogar;
+    private javax.swing.JLabel lblEnvelope;
+    private javax.swing.JLabel lblLogo;
     private javax.swing.JDesktopPane painelConectar;
     private javax.swing.JPanel pnlLogin;
     // End of variables declaration//GEN-END:variables

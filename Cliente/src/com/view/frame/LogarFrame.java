@@ -1,19 +1,27 @@
-
 package com.view.frame;
 
-import com.cx.control.ControleCadastro;
-import com.model.cxl.usuario.Usuario;
+import com.cx.control.ControleCadastroDAO;
+import com.cx.model.usuario.Usuario;
 import com.view.app.Cliente;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
+import java.net.URL;
 import javax.swing.JOptionPane;
 
 public class LogarFrame extends javax.swing.JFrame {
 
-    private ClienteFrame cf = null; 
-    ControleCadastro controle = new ControleCadastro();
-    
+    private ClienteFrame cf = null;
+    ControleCadastroDAO controle = new ControleCadastroDAO();
+
     public LogarFrame() {
+        this.controle = retornaControle(controle);
         initComponents();
+        txtName.requestFocus();
         this.setLocationRelativeTo(null);
+        URL url = this.getClass().getResource("../../app/images/logo.png");
+        Image imagemTitulo = Toolkit.getDefaultToolkit().getImage(url);
+        this.setIconImage(imagemTitulo);
     }
 
     @SuppressWarnings("unchecked")
@@ -28,11 +36,14 @@ public class LogarFrame extends javax.swing.JFrame {
         lblSenha1 = new javax.swing.JLabel();
         btnVoltar = new javax.swing.JButton();
         txtSenha = new javax.swing.JPasswordField();
+        lblMsn = new javax.swing.JLabel();
+        lblLogoP = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
 
         painelConectar.setPreferredSize(new java.awt.Dimension(530, 500));
+        painelConectar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         pnlLogin.setBackground(javax.swing.UIManager.getDefaults().getColor("InternalFrame.resizeIconHighlight"));
         pnlLogin.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Login", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 18))); // NOI18N
@@ -56,6 +67,11 @@ public class LogarFrame extends javax.swing.JFrame {
                 txtNameActionPerformed(evt);
             }
         });
+        txtName.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtNameKeyPressed(evt);
+            }
+        });
 
         lblUsuario1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         lblUsuario1.setText("Usuário:");
@@ -73,6 +89,11 @@ public class LogarFrame extends javax.swing.JFrame {
         txtSenha.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         txtSenha.setToolTipText("");
         txtSenha.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        txtSenha.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtSenhaKeyPressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlLoginLayout = new javax.swing.GroupLayout(pnlLogin);
         pnlLogin.setLayout(pnlLoginLayout);
@@ -114,24 +135,13 @@ public class LogarFrame extends javax.swing.JFrame {
                         .addGap(20, 20, 20))))
         );
 
-        painelConectar.setLayer(pnlLogin, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        painelConectar.add(pnlLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 150, 340, 240));
 
-        javax.swing.GroupLayout painelConectarLayout = new javax.swing.GroupLayout(painelConectar);
-        painelConectar.setLayout(painelConectarLayout);
-        painelConectarLayout.setHorizontalGroup(
-            painelConectarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(painelConectarLayout.createSequentialGroup()
-                .addGap(100, 100, 100)
-                .addComponent(pnlLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(110, Short.MAX_VALUE))
-        );
-        painelConectarLayout.setVerticalGroup(
-            painelConectarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(painelConectarLayout.createSequentialGroup()
-                .addGap(129, 129, 129)
-                .addComponent(pnlLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(131, Short.MAX_VALUE))
-        );
+        lblMsn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/app/images/msn.png"))); // NOI18N
+        painelConectar.add(lblMsn, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 390, -1, -1));
+
+        lblLogoP.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/app/images/LogoPequeno.png"))); // NOI18N
+        painelConectar.add(lblLogoP, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, -20, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -152,25 +162,11 @@ public class LogarFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLogarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogarActionPerformed
-         if(validaCampos()){
-             String name = txtName.getText();
-             String pass = String.valueOf(txtSenha.getPassword());
-             Usuario usuario = controle.buscaUsuario(name, pass);
-             if(usuario != null){
-                 this.dispose();
-                 cf = new ClienteFrame(usuario);
-                 cf.setVisible(true);
-                 JOptionPane.showMessageDialog(null, "Logado com sucesso!", "Login", JOptionPane.WARNING_MESSAGE);
-             }else{
-                 JOptionPane.showMessageDialog(null, "Usuário ou Senha Inválidos!", "Erro de Login", JOptionPane.ERROR_MESSAGE);
-             }
-         }else{
-             JOptionPane.showMessageDialog(null,"Preencha Todos os Campos!","Erro de Login", JOptionPane.ERROR_MESSAGE);
-         }
+        logando();
     }//GEN-LAST:event_btnLogarActionPerformed
 
     private void txtNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNameActionPerformed
-        
+
     }//GEN-LAST:event_txtNameActionPerformed
 
     private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
@@ -179,15 +175,70 @@ public class LogarFrame extends javax.swing.JFrame {
         c.setVisible(true);
     }//GEN-LAST:event_btnVoltarActionPerformed
 
-    public boolean validaCampos(){
+    private void txtSenhaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSenhaKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            logando();
+        }
+    }//GEN-LAST:event_txtSenhaKeyPressed
+
+    private void txtNameKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNameKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            logando();
+        }
+    }//GEN-LAST:event_txtNameKeyPressed
+
+    public ControleCadastroDAO retornaControle(ControleCadastroDAO control) {
+
+        if (control == null) {
+            control = new ControleCadastroDAO();
+        } else {
+        }
+        return control;
+    }
+
+    public boolean validaCampos() {
         boolean contem = false;
-        if(txtName.getText().equals("") || String.valueOf(txtSenha.getPassword()).equals("")){
+        if (txtName.getText().equals("")
+                || String.valueOf(txtSenha.getPassword()).equals("")) {
             contem = false;
-        }else{
+        } else {
             contem = true;
         }
         return contem;
     }
+
+    private void logando() {
+        if (validaCampos()) {
+            String name = txtName.getText();
+            String pass = String.valueOf(txtSenha.getPassword());
+            String nick = null;
+            Usuario usuario = controle.buscaUsuario(name, pass);
+            if (usuario != null) {
+                boolean online = controle.verificaOnline(usuario);
+                if (!online) {
+                    nick = JOptionPane.showInputDialog(null, "Entre com um NickName:", "NickName", JOptionPane.WARNING_MESSAGE);
+                    usuario.setNick(nick);
+                    usuario.setStatus(1);
+                    controle.atualizaStatus(usuario);
+                    this.dispose();
+                    cf = new ClienteFrame(usuario);
+                    cf.setVisible(true);
+                    JOptionPane.showMessageDialog(null, "Logado com sucesso!",
+                            "Login", JOptionPane.WARNING_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Usuário já Online!",
+                            "Erro de Login", JOptionPane.ERROR_MESSAGE);
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Usuário ou Senha Inválidos!",
+                        "Erro de Login", JOptionPane.ERROR_MESSAGE);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Preencha Todos os Campos!",
+                    "Erro de Login", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
     public static void run() {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -220,6 +271,8 @@ public class LogarFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLogar;
     private javax.swing.JButton btnVoltar;
+    private javax.swing.JLabel lblLogoP;
+    private javax.swing.JLabel lblMsn;
     private javax.swing.JLabel lblSenha1;
     private javax.swing.JLabel lblUsuario1;
     private javax.swing.JDesktopPane painelConectar;

@@ -1,13 +1,15 @@
 
-package com.model.cxl.usuario;
+package com.cx.model.usuario;
 
 public class Usuario {
     
     private String login;
     private String senha;
     private String sexo;
+    private String Nick;
     private int status;
-
+    private int ID;
+    
     public Usuario() {
     }
 
@@ -42,6 +44,21 @@ public class Usuario {
     public void setStatus(int status) {
         this.status = status;
     }
+
+    public int getID() {
+        return ID;
+    }
+
+    public void setID(int ID) {
+        this.ID = ID;
+    }
     
+    public String getNick(){
+        return Nick;
+    }
+    
+    public void setNick(String nick){
+        this.Nick = nick;
+    }
     
 }

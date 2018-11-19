@@ -1,19 +1,26 @@
 package com.view.frame;
 
-import com.cx.control.ControleCadastro;
+import com.cx.control.ControleCadastroDAO;
 import com.view.app.Cliente;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
+import java.net.URL;
 import javax.swing.JOptionPane;
 
 public class RegistrarFrame extends javax.swing.JFrame {
 
-    ControleCadastro controle = new ControleCadastro();
+    ControleCadastroDAO controle;
 
     public RegistrarFrame() {
+        this.controle = retornaControle(controle);
         initComponents();
         this.setLocationRelativeTo(null);
         btnGrupoSexo.add(btnFeminino);
         btnGrupoSexo.add(btnMasculino);
-
+        URL url = this.getClass().getResource("../../app/images/logo.png");
+        Image imagemTitulo = Toolkit.getDefaultToolkit().getImage(url);
+        this.setIconImage(imagemTitulo);
     }
 
     @SuppressWarnings("unchecked")
@@ -34,16 +41,26 @@ public class RegistrarFrame extends javax.swing.JFrame {
         lblSenha = new javax.swing.JLabel();
         txtSenha = new javax.swing.JPasswordField();
         btnVoltar = new javax.swing.JButton();
+        lblM = new javax.swing.JLabel();
+        lblF = new javax.swing.JLabel();
+        lblAroba = new javax.swing.JLabel();
+        lblLogoP = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
 
         painelConectar.setPreferredSize(new java.awt.Dimension(530, 500));
+        painelConectar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         pnlRegistrar.setBackground(javax.swing.UIManager.getDefaults().getColor("InternalFrame.resizeIconHighlight"));
         pnlRegistrar.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Registrar", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 18))); // NOI18N
         pnlRegistrar.setEnabled(false);
         pnlRegistrar.setPreferredSize(new java.awt.Dimension(360, 320));
+        pnlRegistrar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                pnlRegistrarKeyPressed(evt);
+            }
+        });
 
         btnRegistrar.setBackground(new java.awt.Color(204, 204, 204));
         btnRegistrar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -67,6 +84,11 @@ public class RegistrarFrame extends javax.swing.JFrame {
                 txtNameActionPerformed(evt);
             }
         });
+        txtName.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtNameKeyPressed(evt);
+            }
+        });
 
         lblUsuario.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         lblUsuario.setText("Usuário:");
@@ -81,10 +103,20 @@ public class RegistrarFrame extends javax.swing.JFrame {
         btnFeminino.setBackground(javax.swing.UIManager.getDefaults().getColor("InternalFrame.resizeIconHighlight"));
         btnFeminino.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         btnFeminino.setText("Feminino");
+        btnFeminino.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnFemininoKeyPressed(evt);
+            }
+        });
 
         btnMasculino.setBackground(javax.swing.UIManager.getDefaults().getColor("InternalFrame.resizeIconHighlight"));
         btnMasculino.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         btnMasculino.setText("Masculino");
+        btnMasculino.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnMasculinoKeyPressed(evt);
+            }
+        });
 
         lblSenha.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         lblSenha.setText("Senha:");
@@ -92,6 +124,11 @@ public class RegistrarFrame extends javax.swing.JFrame {
         txtSenha.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         txtSenha.setToolTipText("");
         txtSenha.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        txtSenha.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtSenhaKeyPressed(evt);
+            }
+        });
 
         btnVoltar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/app/images/setaEsquerda.png"))); // NOI18N
         btnVoltar.addActionListener(new java.awt.event.ActionListener() {
@@ -121,13 +158,15 @@ public class RegistrarFrame extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(btnMasculino))
                             .addGroup(pnlRegistrarLayout.createSequentialGroup()
-                                .addGap(12, 12, 12)
-                                .addComponent(btnRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(pnlRegistrarLayout.createSequentialGroup()
-                                .addGap(37, 37, 37)
-                                .addComponent(imgMulher)
-                                .addGap(60, 60, 60)
-                                .addComponent(imgHomen)
+                                .addGroup(pnlRegistrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(pnlRegistrarLayout.createSequentialGroup()
+                                        .addGap(12, 12, 12)
+                                        .addComponent(btnRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(pnlRegistrarLayout.createSequentialGroup()
+                                        .addGap(37, 37, 37)
+                                        .addComponent(imgMulher)
+                                        .addGap(60, 60, 60)
+                                        .addComponent(imgHomen)))
                                 .addGap(0, 0, Short.MAX_VALUE)))
                         .addContainerGap(46, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlRegistrarLayout.createSequentialGroup()
@@ -170,24 +209,19 @@ public class RegistrarFrame extends javax.swing.JFrame {
                         .addComponent(btnVoltar))))
         );
 
-        painelConectar.setLayer(pnlRegistrar, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        painelConectar.add(pnlRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 90, 340, -1));
 
-        javax.swing.GroupLayout painelConectarLayout = new javax.swing.GroupLayout(painelConectar);
-        painelConectar.setLayout(painelConectarLayout);
-        painelConectarLayout.setHorizontalGroup(
-            painelConectarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(painelConectarLayout.createSequentialGroup()
-                .addGap(100, 100, 100)
-                .addComponent(pnlRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(110, Short.MAX_VALUE))
-        );
-        painelConectarLayout.setVerticalGroup(
-            painelConectarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(painelConectarLayout.createSequentialGroup()
-                .addGap(90, 90, 90)
-                .addComponent(pnlRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(246, 246, 246))
-        );
+        lblM.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/app/images/iconMG.png"))); // NOI18N
+        painelConectar.add(lblM, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 390, 100, 110));
+
+        lblF.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/app/images/iconFG.png"))); // NOI18N
+        painelConectar.add(lblF, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 390, -1, -1));
+
+        lblAroba.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/app/images/email.png"))); // NOI18N
+        painelConectar.add(lblAroba, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
+        lblLogoP.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/app/images/LogoPequeno.png"))); // NOI18N
+        painelConectar.add(lblLogoP, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, -30, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -208,18 +242,7 @@ public class RegistrarFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
-        if (validaDados()) {
-            String login = txtName.getText();
-            String senha = String.valueOf(txtSenha.getPassword());
-            String sexo = selecionaSexo();
-            controle.cadastrarUsuario(login, senha, sexo);
-            this.dispose();
-            Cliente c = new Cliente();
-            c.setVisible(true);
-        } else {
-            JOptionPane.showMessageDialog(null, "Preencha todos os campos!", "Erro de Login", JOptionPane.ERROR_MESSAGE);
-        }
-        
+        registrando();
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
     private void txtNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNameActionPerformed
@@ -234,7 +257,52 @@ public class RegistrarFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVoltarActionPerformed
 
     private void txtNameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNameFocusLost
+        
     }//GEN-LAST:event_txtNameFocusLost
+
+    private void pnlRegistrarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_pnlRegistrarKeyPressed
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+            registrando();
+        }
+    }//GEN-LAST:event_pnlRegistrarKeyPressed
+
+    private void txtNameKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNameKeyPressed
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+            registrando();
+        }
+    }//GEN-LAST:event_txtNameKeyPressed
+
+    private void txtSenhaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSenhaKeyPressed
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+            registrando();
+        }
+    }//GEN-LAST:event_txtSenhaKeyPressed
+
+    private void btnMasculinoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnMasculinoKeyPressed
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+            registrando();
+        }
+    }//GEN-LAST:event_btnMasculinoKeyPressed
+
+    private void btnFemininoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnFemininoKeyPressed
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+            registrando();
+        }
+    }//GEN-LAST:event_btnFemininoKeyPressed
+    private void registrando(){
+        if (validaDados()) {
+            String login = txtName.getText();
+            String senha = String.valueOf(txtSenha.getPassword());
+            String sexo = selecionaSexo();
+            controle.cadastrarUsuario(login, senha, sexo);
+            this.dispose();
+            Cliente c = new Cliente();
+            c.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(null, "Preencha todos os campos!", "Erro de Login", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
     public boolean validaDados() {
 
         boolean preenchidos = false;
@@ -261,6 +329,14 @@ public class RegistrarFrame extends javax.swing.JFrame {
         return (sex);
     }
 
+    public ControleCadastroDAO retornaControle(ControleCadastroDAO control){
+        
+        if(control == null){
+            control  = new ControleCadastroDAO();
+        }else{
+        }
+        return control;
+    }
     public static void run() {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -298,6 +374,10 @@ public class RegistrarFrame extends javax.swing.JFrame {
     private javax.swing.JButton btnVoltar;
     private javax.swing.JLabel imgHomen;
     private javax.swing.JLabel imgMulher;
+    private javax.swing.JLabel lblAroba;
+    private javax.swing.JLabel lblF;
+    private javax.swing.JLabel lblLogoP;
+    private javax.swing.JLabel lblM;
     private javax.swing.JLabel lblSenha;
     private javax.swing.JLabel lblSexo;
     private javax.swing.JLabel lblUsuario;

@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 14-Nov-2018 às 19:15
--- Versão do servidor: 10.1.35-MariaDB
--- versão do PHP: 7.2.9
+-- Generation Time: 19-Nov-2018 às 01:37
+-- Versão do servidor: 10.1.36-MariaDB
+-- versão do PHP: 7.1.23
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -29,17 +29,19 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `login` (
+  `ID` int(2) NOT NULL,
   `Login` varchar(30) NOT NULL,
   `Senha` varchar(20) NOT NULL,
-  `Sexo` varchar(1) NOT NULL
+  `Sexo` varchar(1) NOT NULL,
+  `Status` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `login`
 --
 
-INSERT INTO `login` (`Login`, `Senha`, `Sexo`) VALUES
-('Robson', '12345', 'M');
+INSERT INTO `login` (`ID`, `Login`, `Senha`, `Sexo`, `Status`) VALUES
+(3, 'renan', 'senha', 'M', 0);
 
 --
 -- Indexes for dumped tables
@@ -49,7 +51,18 @@ INSERT INTO `login` (`Login`, `Senha`, `Sexo`) VALUES
 -- Indexes for table `login`
 --
 ALTER TABLE `login`
-  ADD PRIMARY KEY (`Login`);
+  ADD PRIMARY KEY (`Login`),
+  ADD UNIQUE KEY `ID` (`ID`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `login`
+--
+ALTER TABLE `login`
+  MODIFY `ID` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -3,12 +3,16 @@ package com.view.frame;
 import com.model.bean.ChatMessage;
 import com.model.bean.ChatMessage.Action;
 import com.control.service.ClienteService;
-import com.model.cxl.usuario.Usuario;
+import com.cx.control.ControleCadastroDAO;
+import com.cx.model.usuario.Usuario;
 import com.view.app.Cliente;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.net.URL;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -21,16 +25,21 @@ public class ClienteFrame extends javax.swing.JFrame {
     private ClienteService service;
     private ObjectOutputStream outputStream;
     private Usuario usuario;
+    ControleCadastroDAO controle;
     private Cliente c = new Cliente();
-    
+
     public ClienteFrame(Usuario usuario) {
+        this.controle = retornaControle(controle);
         initComponents();
         this.setLocationRelativeTo(null);
         lblNomeM.setVisible(false);
         lblNomeF.setVisible(false);
-        painelChat.setVisible(true);
         this.usuario = usuario;
         conectando();
+        URL url = this.getClass().getResource("../../app/images/logo.png");
+        Image imagemTitulo = Toolkit.getDefaultToolkit().getImage(url);
+        this.setIconImage(imagemTitulo);
+        this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
     }
 
     public void run() {
@@ -81,7 +90,7 @@ public class ClienteFrame extends javax.swing.JFrame {
     }
 
     private void connected(ChatMessage message) {
-        if (message.getText().equals("NO")) {
+       /*if (message.getText().equals("NO")) {
             JOptionPane.showMessageDialog(this, "Conexão não realizada!\nTente novamente com um novo nome.");
             this.txtAreaReceive.setText("");
             lblNomeM.setVisible(false);
@@ -91,13 +100,15 @@ public class ClienteFrame extends javax.swing.JFrame {
             this.service.send(message);
             disconnected();
             return;
-        }
+        }*/
     }
 
     private void disconnected() {
         this.dispose();
         c.setVisible(true);
         JOptionPane.showMessageDialog(null, "Você saiu do Chat!", "Disconnect", JOptionPane.WARNING_MESSAGE);
+        
+        this.controle.atualizaStatus(usuario);
     }
 
     private void receive(ChatMessage message) {
@@ -140,7 +151,7 @@ public class ClienteFrame extends javax.swing.JFrame {
         btnLimpar = new javax.swing.JButton();
         btnLimpar1 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setBackground(java.awt.SystemColor.activeCaption);
         setForeground(java.awt.SystemColor.activeCaption);
         setResizable(false);
@@ -199,15 +210,16 @@ public class ClienteFrame extends javax.swing.JFrame {
         txtAreaReceive.setLineWrap(true);
         txtAreaReceive.setRows(5);
         txtAreaReceive.setWrapStyleWord(true);
-        txtAreaReceive.setDragEnabled(true);
         jScrollPane1.setViewportView(txtAreaReceive);
-
-        jScrollPane2.setAutoscrolls(true);
 
         txtAreaSend.setColumns(20);
         txtAreaSend.setLineWrap(true);
         txtAreaSend.setRows(5);
-        txtAreaSend.setDragEnabled(true);
+        txtAreaSend.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtAreaSendKeyPressed(evt);
+            }
+        });
         jScrollPane2.setViewportView(txtAreaSend);
 
         btnEnviar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -242,28 +254,29 @@ public class ClienteFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(pnlMessagesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlMessagesLayout.createSequentialGroup()
-                        .addComponent(btnLimpar1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnEnviar, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 321, Short.MAX_VALUE)
+                    .addGroup(pnlMessagesLayout.createSequentialGroup()
+                        .addComponent(btnLimpar1)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(jScrollPane2))
                 .addContainerGap())
         );
         pnlMessagesLayout.setVerticalGroup(
             pnlMessagesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlMessagesLayout.createSequentialGroup()
-                .addGap(17, 17, 17)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 209, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlMessagesLayout.createSequentialGroup()
+                .addComponent(btnLimpar1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(pnlMessagesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlMessagesLayout.createSequentialGroup()
-                        .addGroup(pnlMessagesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnLimpar1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(btnEnviar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(6, 6, 6))
@@ -318,8 +331,37 @@ public class ClienteFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnLimparActionPerformed
 
     private void btnEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviarActionPerformed
+        enviandoMensagem();
+    }//GEN-LAST:event_btnEnviarActionPerformed
+
+    private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
+        this.txtAreaReceive.setText("");
+        lblNomeM.setVisible(false);
+        lblNomeF.setVisible(false);
+        ChatMessage message = new ChatMessage();
+        message.setName(this.message.getName());
+        message.setAction(Action.DISCONNECT);
+        this.service.send(message);
+        this.usuario.setStatus(0);
+        disconnected();
+    }//GEN-LAST:event_btnSairActionPerformed
+    private void btnLimpar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpar1ActionPerformed
+        // TODO add your handling code here:
+        this.txtAreaReceive.setText("");
+    }//GEN-LAST:event_btnLimpar1ActionPerformed
+
+    private void txtAreaSendKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtAreaSendKeyPressed
+    }//GEN-LAST:event_txtAreaSendKeyPressed
+    public ControleCadastroDAO retornaControle(ControleCadastroDAO control){
+        
+        if(control == null){
+            control  = new ControleCadastroDAO();
+        }
+        return control;
+    }
+    private void enviandoMensagem() {
         String text = this.txtAreaSend.getText();
-        String name = usuario.getLogin();
+        String name = usuario.getNick();
 
         this.message = new ChatMessage();
 
@@ -338,30 +380,28 @@ public class ClienteFrame extends javax.swing.JFrame {
             this.txtAreaReceive.append("Você : " + text + "\n");
             this.service.send(this.message);
         }
-
+        if(this.txtAreaSend.getText().equals("\n")){
+            this.txtAreaSend.setText("");
+        }
         this.txtAreaSend.setText("");
-    }//GEN-LAST:event_btnEnviarActionPerformed
+    }
 
-    private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
-        this.txtAreaReceive.setText("");
-        lblNomeM.setVisible(false);
-        lblNomeF.setVisible(false);
-        ChatMessage message = new ChatMessage();
-        message.setName(this.message.getName());
-        message.setAction(Action.DISCONNECT);
-        this.service.send(message);
-        disconnected();
-    }//GEN-LAST:event_btnSairActionPerformed
-    private void btnLimpar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpar1ActionPerformed
-        // TODO add your handling code here:
-        this.txtAreaReceive.setText("");
-    }//GEN-LAST:event_btnLimpar1ActionPerformed
+    private void pausa() {
+        for (int i = 0; i < 3; i++) {
+            try {	//Tenta pausar em 1000 milisegundos.
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {	//Erro na execução.
+                System.out.println("ERRO");
+            }
+        }
+        
+    }
 
     private void conectando() {
         boolean confirmarSexo = true;
         boolean confirmarNome = true;
         String sexo = this.usuario.getSexo();
-        String name = this.usuario.getLogin();
+        String name = this.usuario.getNick();
         if (name.equals("")) {
             confirmarNome = false;
         }
@@ -381,11 +421,11 @@ public class ClienteFrame extends javax.swing.JFrame {
             if (sexo.equals("M")) {
                 lblNomeM.setVisible(true);
                 lblNomeM.setText(name);
-            } else if(sexo.equals("F")){
+            } else if (sexo.equals("F")) {
                 lblNomeF.setVisible(true);
                 lblNomeF.setText(name);
-            }else{
-               JOptionPane.showMessageDialog(null, "Sexo Invalido", "Erro", JOptionPane.ERROR_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(null, "Sexo Invalido", "Erro", JOptionPane.ERROR_MESSAGE);
             }
         }
     }
