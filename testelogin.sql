@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 19-Nov-2018 às 01:37
+-- Generation Time: 19-Nov-2018 às 02:27
 -- Versão do servidor: 10.1.36-MariaDB
 -- versão do PHP: 7.1.23
 
@@ -33,7 +33,7 @@ CREATE TABLE `login` (
   `Login` varchar(30) NOT NULL,
   `Senha` varchar(20) NOT NULL,
   `Sexo` varchar(1) NOT NULL,
-  `Status` int(1) NOT NULL
+  `Status` int(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -41,7 +41,8 @@ CREATE TABLE `login` (
 --
 
 INSERT INTO `login` (`ID`, `Login`, `Senha`, `Sexo`, `Status`) VALUES
-(3, 'renan', 'senha', 'M', 0);
+(8, 'renan', 'senha', 'M', 0),
+(9, 'roginho', '12345', 'M', 0);
 
 --
 -- Indexes for dumped tables
@@ -62,7 +63,7 @@ ALTER TABLE `login`
 -- AUTO_INCREMENT for table `login`
 --
 ALTER TABLE `login`
-  MODIFY `ID` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `ID` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

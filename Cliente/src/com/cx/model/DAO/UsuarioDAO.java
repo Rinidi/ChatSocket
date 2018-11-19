@@ -18,7 +18,7 @@ public class UsuarioDAO {
         PreparedStatement pstm = null;
         
         try {
-            pstm = con.prepareStatement("INSERT INTO Login VALUES (?,?,?,?)");
+            pstm = con.prepareStatement("INSERT INTO `login`(`Login`, `Senha`, `Sexo`, Status) VALUES (?,?,?,?)");
             pstm.setString(1,usuario.getLogin());
             pstm.setString(2, usuario.getSenha());
             pstm.setString(3, usuario.getSexo());

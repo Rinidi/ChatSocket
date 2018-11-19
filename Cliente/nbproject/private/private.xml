@@ -9,15 +9,16 @@
             <file>file:/D:/Aulas%20CEP/Projeto-Transmissão%20de%20Dados/Java/15%20Videos/Cliente/src/com/bean/ChatMessage.java</file>
         </group>
         <group>
-            <file>file:/D:/Aulas%20CEP/Projeto-Transmissão%20de%20Dados/ChatSocket/Cliente/src/com/view/frame/LogarFrame.java</file>
-            <file>file:/D:/Aulas%20CEP/Projeto-Transmissão%20de%20Dados/ChatSocket/Cliente/src/com/cx/control/ControleCadastro.java</file>
+            <file>file:/D:/Aulas%20CEP/Projeto-Transmissão%20de%20Dados/ChatSocket/Cliente/src/com/cx/control/ControleCadastroDAO.java</file>
             <file>file:/D:/Aulas%20CEP/Projeto-Transmissão%20de%20Dados/ChatSocket/Cliente/src/com/cx/connection/ConnectionFactory.java</file>
+            <file>file:/D:/Aulas%20CEP/Projeto-Transmissão%20de%20Dados/ChatSocket/Cliente/src/com/view/frame/RegistrarFrame.java</file>
             <file>file:/D:/Aulas%20CEP/Projeto-Transmissão%20de%20Dados/ChatSocket/Cliente/src/com/model/bean/ChatMessage.java</file>
             <file>file:/D:/Aulas%20CEP/Projeto-Transmissão%20de%20Dados/ChatSocket/Cliente/src/com/view/frame/ClienteFrame.java</file>
-            <file>file:/D:/Aulas%20CEP/Projeto-Transmissão%20de%20Dados/ChatSocket/Cliente/src/com/cx/model/DAO/UsuarioDAO.java</file>
             <file>file:/D:/Aulas%20CEP/Projeto-Transmissão%20de%20Dados/ChatSocket/Cliente/src/com/cx/model/usuario/Usuario.java</file>
+            <file>file:/D:/Aulas%20CEP/Projeto-Transmissão%20de%20Dados/ChatSocket/Cliente/src/com/cx/model/DAO/UsuarioDAO.java</file>
+            <file>file:/D:/Aulas%20CEP/Projeto-Transmissão%20de%20Dados/ChatSocket/Cliente/src/com/view/frame/LogarFrame.java</file>
             <file>file:/D:/Aulas%20CEP/Projeto-Transmissão%20de%20Dados/ChatSocket/Cliente/src/com/view/app/Cliente.java</file>
-            <file>file:/D:/Aulas%20CEP/Projeto-Transmissão%20de%20Dados/ChatSocket/Cliente/src/com/view/frame/RegistrarFrame.java</file>
+            <file>file:/D:/Aulas%20CEP/Projeto-Transmissão%20de%20Dados/ChatSocket/Cliente/src/com/control/service/ClienteService.java</file>
         </group>
     </open-files>
 </project-private>
