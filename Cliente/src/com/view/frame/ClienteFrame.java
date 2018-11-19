@@ -36,9 +36,9 @@ public class ClienteFrame extends javax.swing.JFrame {
         lblNomeF.setVisible(false);
         this.usuario = usuario;
         conectando();
-        URL url = this.getClass().getResource("../../app/images/logo.png");
-        Image imagemTitulo = Toolkit.getDefaultToolkit().getImage(url);
-        this.setIconImage(imagemTitulo);
+        //URL url = this.getClass().getResource("../../app/images/logo.png");
+        //Image imagemTitulo = Toolkit.getDefaultToolkit().getImage(url);
+        //this.setIconImage(imagemTitulo);
         this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
     }
 

@@ -18,9 +18,9 @@ public class RegistrarFrame extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         btnGrupoSexo.add(btnFeminino);
         btnGrupoSexo.add(btnMasculino);
-        URL url = this.getClass().getResource("../../app/images/logo.png");
-        Image imagemTitulo = Toolkit.getDefaultToolkit().getImage(url);
-        this.setIconImage(imagemTitulo);
+        //URL url = this.getClass().getResource("../../app/images/logo.png");
+        //Image imagemTitulo = Toolkit.getDefaultToolkit().getImage(url);
+        //this.setIconImage(imagemTitulo);
     }
 
     @SuppressWarnings("unchecked")

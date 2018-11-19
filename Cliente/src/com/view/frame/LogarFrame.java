@@ -19,9 +19,9 @@ public class LogarFrame extends javax.swing.JFrame {
         initComponents();
         txtName.requestFocus();
         this.setLocationRelativeTo(null);
-        URL url = this.getClass().getResource("../../app/images/logo.png");
-        Image imagemTitulo = Toolkit.getDefaultToolkit().getImage(url);
-        this.setIconImage(imagemTitulo);
+        //URL url = this.getClass().getResource("../../app/images/logo.png");
+        //Image imagemTitulo = Toolkit.getDefaultToolkit().getImage(url);
+        // this.setIconImage(imagemTitulo);
     }
 
     @SuppressWarnings("unchecked")

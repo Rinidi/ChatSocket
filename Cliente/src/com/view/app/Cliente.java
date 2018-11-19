@@ -14,9 +14,9 @@ public class Cliente extends javax.swing.JFrame {
     public Cliente() {
         initComponents();
         this.setLocationRelativeTo(null);
-        URL url = this.getClass().getResource("../../app/images/logoPequeno.png");
-        Image imagemTitulo = Toolkit.getDefaultToolkit().getImage(url);
-        this.setIconImage(imagemTitulo);
+        //URL url = this.getClass().getResource("../../app/images/logoPequeno.png");
+        //Image imagemTitulo = Toolkit.getDefaultToolkit().getImage(url);
+        //this.setIconImage(imagemTitulo);
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
