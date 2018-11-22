@@ -30,6 +30,7 @@ public class Cliente extends javax.swing.JFrame {
         lblEnvelope = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         painelConectar.setPreferredSize(new java.awt.Dimension(530, 500));
         painelConectar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());

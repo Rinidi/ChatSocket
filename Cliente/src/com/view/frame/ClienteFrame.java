@@ -8,6 +8,8 @@ import com.cx.model.usuario.Usuario;
 import com.view.app.Cliente;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
+import static java.awt.event.KeyEvent.VK_BACK_SPACE;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -31,14 +33,12 @@ public class ClienteFrame extends javax.swing.JFrame {
     public ClienteFrame(Usuario usuario) {
         this.controle = retornaControle(controle);
         initComponents();
+        txtAreaSend.requestFocus();
         this.setLocationRelativeTo(null);
         lblNomeM.setVisible(false);
         lblNomeF.setVisible(false);
         this.usuario = usuario;
         conectando();
-        //URL url = this.getClass().getResource("../../app/images/logo.png");
-        //Image imagemTitulo = Toolkit.getDefaultToolkit().getImage(url);
-        //this.setIconImage(imagemTitulo);
         this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
     }
 
@@ -90,7 +90,7 @@ public class ClienteFrame extends javax.swing.JFrame {
     }
 
     private void connected(ChatMessage message) {
-       /*if (message.getText().equals("NO")) {
+        /*if (message.getText().equals("NO")) {
             JOptionPane.showMessageDialog(this, "Conexão não realizada!\nTente novamente com um novo nome.");
             this.txtAreaReceive.setText("");
             lblNomeM.setVisible(false);
@@ -107,7 +107,7 @@ public class ClienteFrame extends javax.swing.JFrame {
         this.dispose();
         c.setVisible(true);
         JOptionPane.showMessageDialog(null, "Você saiu do Chat!", "Disconnect", JOptionPane.WARNING_MESSAGE);
-        
+
         this.controle.atualizaStatus(usuario);
     }
 
@@ -351,15 +351,20 @@ public class ClienteFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnLimpar1ActionPerformed
 
     private void txtAreaSendKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtAreaSendKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            enviandoMensagem();
+        }
     }//GEN-LAST:event_txtAreaSendKeyPressed
-    public ControleCadastroDAO retornaControle(ControleCadastroDAO control){
-        
-        if(control == null){
-            control  = new ControleCadastroDAO();
+    public ControleCadastroDAO retornaControle(ControleCadastroDAO control) {
+
+        if (control == null) {
+            control = new ControleCadastroDAO();
         }
         return control;
     }
-    private void enviandoMensagem() {
+
+    private void enviandoMensagem() throws NullPointerException {
+        KeyEvent ev = null;
         String text = this.txtAreaSend.getText();
         String name = usuario.getNick();
 
@@ -376,14 +381,34 @@ public class ClienteFrame extends javax.swing.JFrame {
         if (!text.isEmpty()) {
             this.message.setName(name);
             this.message.setText(text);
+            this.message.setColor(cor);
 
             this.txtAreaReceive.append("Você : " + text + "\n");
             this.service.send(this.message);
         }
-        if(this.txtAreaSend.getText().equals("\n")){
+        if (this.txtAreaSend.getText().equals("\n")) {
             this.txtAreaSend.setText("");
         }
         this.txtAreaSend.setText("");
+//        String oQtem = txtAreaSend.getText();
+//        
+        try {
+            ev.setKeyCode(VK_BACK_SPACE);
+            //ev.consume();
+        } catch (NullPointerException ex) {
+            ev.setKeyCode(VK_BACK_SPACE);
+            ev.consume();
+        }
+
+//      int quant = oQtem.length();
+//        
+//      this.txtAreaSend.setText(oQtem.substring(0,quant-2));
+        //int posicao = txtAreaSend.getCaretPosition();
+        //txtAreaSend.setCaretPosition(-1);
+//        System.out.println(txtAreaSend.getText());
+//        String string = txtAreaSend.getText();
+//        int quant = string.length();
+//        String palavra = this.txtAreaSend.getText();
     }
 
     private void pausa() {
@@ -394,8 +419,9 @@ public class ClienteFrame extends javax.swing.JFrame {
                 System.out.println("ERRO");
             }
         }
-        
+
     }
+    String cor;
 
     private void conectando() {
         boolean confirmarSexo = true;
@@ -410,6 +436,8 @@ public class ClienteFrame extends javax.swing.JFrame {
                 this.message = new ChatMessage();
                 this.message.setAction(Action.CONNECT);
                 this.message.setName(name);
+                cor = this.message.makeColor();
+                this.message.setColor(cor);
 
                 this.service = new ClienteService();
                 this.socket = this.service.connect();

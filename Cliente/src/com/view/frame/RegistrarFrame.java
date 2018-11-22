@@ -15,6 +15,7 @@ public class RegistrarFrame extends javax.swing.JFrame {
     public RegistrarFrame() {
         this.controle = retornaControle(controle);
         initComponents();
+        txtName.requestFocus();
         this.setLocationRelativeTo(null);
         btnGrupoSexo.add(btnFeminino);
         btnGrupoSexo.add(btnMasculino);

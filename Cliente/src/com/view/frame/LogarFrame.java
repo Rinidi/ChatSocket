@@ -216,7 +216,14 @@ public class LogarFrame extends javax.swing.JFrame {
             if (usuario != null) {
                 boolean online = controle.verificaOnline(usuario);
                 if (!online) {
-                    nick = JOptionPane.showInputDialog(null, "Entre com um NickName:", "NickName", JOptionPane.WARNING_MESSAGE);
+                    
+                    do{
+                        nick = JOptionPane.showInputDialog(null, "Entre com um NickName:", "NickName", JOptionPane.WARNING_MESSAGE);
+                        if(nick == null){
+                            nick = "";
+                        }
+                    }while(nick.equals(""));
+                    
                     usuario.setNick(nick);
                     usuario.setStatus(1);
                     controle.atualizaStatus(usuario);

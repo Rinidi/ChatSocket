@@ -16,8 +16,9 @@ public class ChatMessage implements Serializable
     private Set<String> setOnlines = new HashSet<String>();
     private Action action;
 
-    Random r = new Random();
-    StringBuffer sb = new StringBuffer("#");
+    private Random r = new Random();
+    private StringBuffer sb = new StringBuffer("#");
+    private String color;
 
     public String getName() {
         return name;
@@ -73,14 +74,18 @@ public class ChatMessage implements Serializable
         CONNECT, DISCONNECT, SEND_ONE, SEND_ALL, USERS_ONLINE;
     }
 
-    public String setColor() {
+    public String makeColor() {
         while(sb.length() < 7){
             sb.append(Integer.toHexString(r.nextInt()));
         }
         return sb.toString().substring(0, 7);
     }
 
+    public void setColor(String color) {
+        this.color = color;
+    }
+
     public String getColor() {
-        return sb.toString().substring(0, 7);
+        return this.color;
     }
 }
